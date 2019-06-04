@@ -10,7 +10,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.json.JSONException;
@@ -76,21 +78,31 @@ public class Read_json {
 
     }
 
-    public List<String> get_meters_list(String area){
+    public LinkedHashMap<String, List> get_meters_list(String area){
         JSONObject all = get_json();
-        final List<String> meter_list = new ArrayList<String>();
-
+        LinkedHashMap<String, List> owner_meter_map = new LinkedHashMap<>();
+        JSONObject json_area = null;
         try {
-            Iterator meter_names = all.getJSONObject("area").getJSONObject(area).keys();
-            while (meter_names.hasNext()) {
-                String key = (String) meter_names.next();
-                meter_list.add(key);
-            }
+            json_area = all.getJSONObject("area").getJSONObject(area);
+
+            Iterator owners = json_area.keys();
+            while (owners.hasNext()){
+                String owner = owners.next().toString();
+                List<String> list = new ArrayList<String>();
+                for (int i=0; i<json_area.getJSONArray(owner).length(); i++) {
+                    list.add(json_area.getJSONArray(owner).getString(i) );
+                }
+                owner_meter_map.put(owner, list);
+                }
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.d("debugging", "Meter Map:" + owner_meter_map.toString());
+        return  owner_meter_map;
 
-        return meter_list;
+
+
+
 
     }
 }

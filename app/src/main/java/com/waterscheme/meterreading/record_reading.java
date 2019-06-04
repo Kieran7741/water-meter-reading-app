@@ -35,7 +35,7 @@ public class record_reading extends AppCompatActivity {
         Button submit = findViewById(R.id.submit_reading);
 
         extract_bundle();
-        tv.setText(meter_name);
+        tv.setText(meter_name + ": " + owner);
 
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -49,7 +49,7 @@ public class record_reading extends AppCompatActivity {
     public void extract_bundle(){
         Bundle b = getIntent().getExtras();
         if(b != null) {
-            area = "Abbey";//b.getString("area");
+            area = b.getString("area");
             owner = b.getString("owner");
             meter_name = b.getString("meter");
         }
@@ -68,7 +68,8 @@ public class record_reading extends AppCompatActivity {
             String date = sdf.format(new Date());
             String meter_reading = reading.getText().toString();
 
-            String meter_reading_entry = meter_name + ","+ meter_name+","+ meter_reading+ ","+ date;
+            String meter_reading_entry = owner + ","+ meter_name+","+ meter_reading+ ","+ date;
+            Log.d("debugging", meter_reading_entry);
             write_to_file(area, meter_reading_entry);
         } else {
             Toast.makeText(this, "Cannot write to file as access not granted by user", Toast.LENGTH_LONG).show();
