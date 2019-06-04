@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Meter Reading</string>
+    <string name="welcome">Select Area</string>
+    <string name="title_activity_meter">meter</string>
+    <string name="select_meter">Select a meter</string>
+    <string name="meter_name">placeholder</string>
+</resources>

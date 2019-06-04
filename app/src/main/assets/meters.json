@@ -1,0 +1,39 @@
+{
+  "area": {
+    "Abbey": {
+      "Kenneth Kelly": ["AB1"],
+      "Mrs Nora Hynes": ["AB2"],
+      "Gerard Abberton": ["AB3"],
+      "Albert Abberton": ["AB4"],
+      "Ml  Hynes": ["AB5"],
+      "Noel Hynes": ["AB6A", "AB6B", "AB6C"],
+      "Barry Donnelly": ["AB7"],
+      "Frank Hynes": ["AB8"],
+      "Mary Broderick": ["AB9"],
+      "John Holohan": ["AB10"],
+      "Ms Marion Forde": ["AB11"],
+      "Mrs Mary Kearns": ["AB12"],
+      "John Ryan": ["AB13"],
+      "Des Lynch": ["AB14"],
+      "Brendan Lynch": ["AB15"],
+      "Parochial House": ["AB16"],
+      "Pat Finnegan": ["AB17"],
+      "Helen&MI. Behan": ["AB18"],
+      "Holohans Pub": ["AB19"],
+      "National School": ["AB20"],
+      "Community Centre": ["AB21"],
+      "Anne Lynch": ["AB22"],
+      "John Kelly": ["AB23"],
+      "Eddie Finnegan": ["AB24"],
+      "Fas at Holohans": ["AB25"],
+      "Church": ["AB26"]
+    },
+    "Lacken": {},
+    "Coolfin": {},
+    "Ballygown": {},
+    "Kylemore": {},
+    "Abbeyville": {},
+    "Easterfield": {},
+    "Eaglehill tomany": {}
+  }
+}
