@@ -1,5 +1,6 @@
 package com.waterscheme.meterreading;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -40,9 +41,14 @@ public class record_reading extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 save_reading();
-            }
+                go_back();
+                   }
         });
 
+    }
+
+    private void go_back() {
+        this.finish();
     }
 
 
@@ -61,6 +67,7 @@ public class record_reading extends AppCompatActivity {
      * Attempts to write the meter reading to a file.
      */
     public void save_reading(){
+        Toast.makeText(this, "Saving meter reading",Toast.LENGTH_LONG).show();
 
         if (isExternalStorageWritable()) {
             // block of code to be executed if the condition is true
