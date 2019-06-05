@@ -8,8 +8,8 @@
 
     <TextView
         android:id="@+id/meter_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/large_textview"
+
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
@@ -34,6 +34,7 @@
         app:layout_constraintTop_toBottomOf="@+id/meter_name" />
 
     <Button
+        style="@style/button_style"
         android:id="@+id/submit_reading"
         android:layout_width="100dp"
         android:layout_height="wrap_content"

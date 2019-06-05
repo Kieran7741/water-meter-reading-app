@@ -7,14 +7,12 @@
     tools:context=".MainActivity">
 
     <TextView
+        style="@style/large_textview"
         android:id="@+id/meter_text_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="8dp"
         android:text="@string/select_meter"
-        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
