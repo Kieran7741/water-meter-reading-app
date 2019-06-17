@@ -29,7 +29,6 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 
 public class record_reading extends AppCompatActivity {
@@ -38,6 +37,7 @@ public class record_reading extends AppCompatActivity {
     String owner = "";
     String meter_name = ""; // or other values
     EditText reading;
+    String base_url = "http://192.168.41.110:5000/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +58,11 @@ public class record_reading extends AppCompatActivity {
                    }
         });
 
+        get_previous_readings(meter_name);
+
     }
+
+
 
     private void go_back() {
         this.finish();
@@ -169,7 +173,7 @@ public class record_reading extends AppCompatActivity {
         }
         // Instantiate the RequestQueue.
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url =" http://192.168.41.110:5000/readings/add";
+        String url = base_url + "readings/add";
 
         // Request a string response from the provided URL.
         JsonObjectRequest jsonReuest = new JsonObjectRequest(Request.Method.POST, url, json, new Response.Listener<JSONObject>(){
@@ -190,5 +194,33 @@ public class record_reading extends AppCompatActivity {
     }
 
 
+    private void get_previous_readings(String meter_name) {
 
+        final TextView previous_readings = findViewById(R.id.previous_readings);
+// Make a request to get all meter readings for meter_name
+        String url = base_url + "readings/" + meter_name;
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+// Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String readings) {
+                        previous_readings.setText("Previous readings "+ readings);
+                        Log.d("debugging", "Response from flask: " + readings);
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                previous_readings.setText("That didn't work!");
+                Log.d("debugging", "Error from flask: "+ error.getMessage());
+
+            }
+        });
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+    }
 }
