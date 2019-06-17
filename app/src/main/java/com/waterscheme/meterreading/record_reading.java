@@ -11,12 +11,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
 
 
 public class record_reading extends AppCompatActivity {
@@ -78,6 +91,8 @@ public class record_reading extends AppCompatActivity {
             String meter_reading_entry = owner + ","+ meter_name+","+ meter_reading+ ","+ date;
             Log.d("debugging", meter_reading_entry);
             write_to_file(area, meter_reading_entry);
+
+            commit_reading(Integer.parseInt(reading.getText().toString()),meter_name, date);
         } else {
             Toast.makeText(this, "Cannot write to file as access not granted by user", Toast.LENGTH_LONG).show();
         }
@@ -141,6 +156,38 @@ public class record_reading extends AppCompatActivity {
         }
     }
 
+    public void commit_reading(int reading, String meter_name, String date){
+
+
+        JSONObject json = new JSONObject();
+        try {
+            json.put("meter-id",meter_name);
+            json.put("reading", reading);
+            json.put("date", date);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url =" http://192.168.41.110:5000/readings/add";
+
+        // Request a string response from the provided URL.
+        JsonObjectRequest jsonReuest = new JsonObjectRequest(Request.Method.POST, url, json, new Response.Listener<JSONObject>(){
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // Display the first 500 characters of the response string.
+                        Log.d("debugging", "Response from flask: " + response.toString());
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("debugging", "Error from flask: "+ error.getMessage());
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(jsonReuest);
+    }
 
 
 
